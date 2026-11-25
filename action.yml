@@ -1,0 +1,55 @@
+name: 'AgenticPress Breakage Check'
+description: 'Catch deprecated AI models, EOL runtimes, and sunsetted platform dependencies before merge using live primary-sourced AgenticPress data.'
+author: 'AgenticPress'
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  fail-on:
+    description: 'Failure threshold: "sunset" (DO_NOT_USE/SUNSET), "deprecated" (also fail on MIGRATE_SOON/DEPRECATED), or "none" (report only).'
+    required: false
+    default: 'sunset'
+  scan-models:
+    description: 'Scan code and config files for AI model identifiers ("true" or "false").'
+    required: false
+    default: 'true'
+  comment-on-pr:
+    description: 'Post or update a sticky summary comment on pull requests ("true" or "false").'
+    required: false
+    default: 'false'
+  working-directory:
+    description: 'Directory to scan relative to the repository root.'
+    required: false
+    default: '.'
+  github-token:
+    description: 'GitHub token used when comment-on-pr is "true".'
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  checked-count:
+    description: 'Total unique targets checked against AgenticPress.'
+    value: ${{ steps.scan.outputs.checked_count }}
+  sunset-count:
+    description: 'Count of targets with action DO_NOT_USE or verdict SUNSET.'
+    value: ${{ steps.scan.outputs.sunset_count }}
+  migrate-soon-count:
+    description: 'Count of targets with action MIGRATE_SOON or verdict DEPRECATED.'
+    value: ${{ steps.scan.outputs.migrate_soon_count }}
+  findings-count:
+    description: 'Count of actionable findings (sunset + migrate-soon).'
+    value: ${{ steps.scan.outputs.findings_count }}
+
+runs:
+  using: 'composite'
+  steps:
+    - id: scan
+      shell: bash
+      env:
+        INPUT_FAIL_ON: ${{ inputs.fail-on }}
+        INPUT_SCAN_MODELS: ${{ inputs.scan-models }}
+        INPUT_COMMENT_ON_PR: ${{ inputs.comment-on-pr }}
+        INPUT_WORKING_DIRECTORY: ${{ inputs.working-directory }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+      run: node "${{ github.action_path }}/scripts/check.mjs"

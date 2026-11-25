@@ -1,0 +1,28 @@
+name: Report a Stale or Incorrect Fact
+description: Flag an outdated date, wrong replacement recommendation, or parser mismatch on AgenticPress or in agenticpress-check.
+title: "[Stale Fact]: "
+labels: ["bug", "stale-fact"]
+body:
+  - type: input
+    id: target
+    attributes:
+      label: Affected Target or Entity Slug
+      description: e.g., gpt-4o, node:18, anthropic-api-deprecations
+      placeholder: "gpt-4o"
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed Output vs. Expected Output
+      description: Paste what /api/check, MCP, or agenticpress-check returned and what you expected instead.
+    validations:
+      required: true
+  - type: input
+    id: primary_proof
+    attributes:
+      label: Primary Vendor Proof URL
+      description: Official vendor docs or changelog URL showing the updated date, limit, or status.
+      placeholder: "https://..."
+    validations:
+      required: true

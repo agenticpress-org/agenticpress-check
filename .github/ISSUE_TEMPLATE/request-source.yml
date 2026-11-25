@@ -1,0 +1,39 @@
+name: Request a New Primary Source
+description: Suggest an official vendor changelog, deprecation calendar, or runtime EOL table for AgenticPress to track.
+title: "[Source Request]: "
+labels: ["source-request"]
+body:
+  - type: input
+    id: vendor
+    attributes:
+      label: Vendor / Platform
+      description: e.g., Cloudflare Workers, AWS Lambda, OpenAI, Go
+      placeholder: "OpenAI / Anthropic / Node.js"
+    validations:
+      required: true
+  - type: input
+    id: source_url
+    attributes:
+      label: Official Primary Source URL
+      description: Link to the vendor's official changelog, deprecation schedule, quotas page, or release calendar (no third-party blogs).
+      placeholder: "https://..."
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Beat / Category
+      options:
+        - AI Models & SDKs
+        - Cloud Platforms & Serverless Limits
+        - Runtimes, Languages & OS EOLs
+        - AI Compliance & Deadlines
+    validations:
+      required: true
+  - type: textarea
+    id: breakage_risk
+    attributes:
+      label: What breaks silently if this is missed?
+      description: Briefly describe the silent failure mode or breaking cutoff developers/agents hit.
+    validations:
+      required: true

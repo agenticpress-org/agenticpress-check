@@ -1,0 +1,30 @@
+{
+  "name": "agenticpress-check",
+  "version": "1.0.0",
+  "description": "Zero-dependency GitHub Action and CLI scanner that catches deprecated AI models, EOL runtimes, and sunsetted dependencies via AgenticPress.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "agenticpress-check": "./scripts/check.mjs"
+  },
+  "scripts": {
+    "test": "node --test tests/check.test.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "keywords": [
+    "github-action",
+    "ai-models",
+    "deprecations",
+    "eol",
+    "runtimes",
+    "mcp",
+    "agenticpress"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agenticpress-org/agenticpress-check.git"
+  },
+  "homepage": "https://agenticpress.org"
+}
