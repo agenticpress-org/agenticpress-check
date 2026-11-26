@@ -233,6 +233,9 @@ test('upsertStickyPrComment creates new comment when absent and updates existing
 
 test('action.yml passes inputs only through env and never interpolates inputs inside run', () => {
   const actionYml = fs.readFileSync(new URL('../action.yml', import.meta.url), 'utf8');
+  const descMatch = actionYml.match(/^description:\s*'([^']+)'/m);
+  assert.ok(descMatch, 'Expected single-quoted description in action.yml');
+  assert.ok(descMatch[1].length < 125, `Expected description < 125 chars, got ${descMatch[1].length}`);
   const runMatch = actionYml.match(/^\s*run:\s*(.+)$/m);
   assert.ok(runMatch, 'Expected run: line in action.yml');
   assert.doesNotMatch(runMatch[1], /\$\{\{\s*inputs\./);

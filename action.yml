@@ -1,5 +1,5 @@
 name: 'AgenticPress Breakage Check'
-description: 'Catch deprecated AI models, EOL runtimes, and sunsetted platform dependencies before merge using live primary-sourced AgenticPress data.'
+description: 'Catch deprecated AI models, EOL runtimes, and sunsetted dependencies before merge using live AgenticPress data.'
 author: 'AgenticPress'
 branding:
   icon: 'shield'
